@@ -11,7 +11,7 @@
     <!-- Common -->
     <string name="cancel">取消</string>
     <string name="delete">删除</string>
-    <string name="empty">空空如也</string>
+    <string name="empty">Empty</string>
     <string name="retry">重试</string>
     <string name="input_user_id_required">请输入 UserId</string>
     <string name="profile_load_failed">资料加载失败</string>

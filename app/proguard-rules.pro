@@ -1,11 +1,8 @@
--repackageclasses ''
+-repackageclasses
 -allowaccessmodification
 -dontusemixedcaseclassnames
--renamesourcefileattribute ''
--processkotlinnullchecks remove
--obfuscationdictionary dictionary.txt
--classobfuscationdictionary dictionary.txt
--packageobfuscationdictionary dictionary.txt
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
 -assumenosideeffects class android.util.Log {
     public static *** v(...);

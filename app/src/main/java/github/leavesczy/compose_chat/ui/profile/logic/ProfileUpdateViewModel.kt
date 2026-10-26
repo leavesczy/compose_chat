@@ -8,7 +8,6 @@ import github.leavesczy.compose_chat.R
 import github.leavesczy.compose_chat.base.models.ActionResult
 import github.leavesczy.compose_chat.di.ComposeChat
 import github.leavesczy.compose_chat.ui.base.BaseViewModel
-import github.leavesczy.compose_chat.utils.randomImage
 import kotlinx.coroutines.launch
 
 class ProfileUpdateViewModel : BaseViewModel() {
@@ -63,7 +62,7 @@ class ProfileUpdateViewModel : BaseViewModel() {
         val personProfile = viewState.personProfile
         if (personProfile != null) {
             pageViewState =
-                viewState.copy(personProfile = personProfile.copy(avatarUrl = randomImage()))
+                viewState.copy(personProfile = personProfile.copy(avatarUrl = "https://p6-passport.byteacctimg.com/img/user-avatar/6019f80db5be42d33c31c98adaf3fa8c~500x500.awebp"))
         }
     }
 
