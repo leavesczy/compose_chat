@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.app.android.application)
-    alias(libs.plugins.app.android.compose)
+    alias(libs.plugins.app.androidx.compose)
     alias(libs.plugins.app.kotlin.parcelize)
-    alias(libs.plugins.app.leavesczy.track)
 }
 
 android {

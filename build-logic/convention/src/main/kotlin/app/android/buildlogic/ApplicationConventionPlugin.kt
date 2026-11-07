@@ -1,6 +1,9 @@
+package app.android.buildlogic
+
+import app.android.buildlogic.config.configureAndroidApplication
+import app.android.buildlogic.config.configureAndroidProject
+import app.android.buildlogic.setup.setupTrackPlugin
 import com.android.build.api.dsl.ApplicationExtension
-import github.leavesczy.compose_chat.configureAndroidApplication
-import github.leavesczy.compose_chat.configureAndroidProject
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -14,6 +17,7 @@ class ApplicationConventionPlugin : Plugin<Project> {
             val applicationExtension = extensions.getByType<ApplicationExtension>()
             configureAndroidApplication(applicationExtension = applicationExtension)
             configureAndroidProject(commonExtension = applicationExtension)
+            setupTrackPlugin()
         }
     }
 

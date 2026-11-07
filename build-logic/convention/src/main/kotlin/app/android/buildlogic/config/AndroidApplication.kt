@@ -1,21 +1,12 @@
-package github.leavesczy.compose_chat
+package app.android.buildlogic.config
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Project
 import org.gradle.api.plugins.BasePluginExtension
 import org.gradle.kotlin.dsl.getByType
 import java.io.File
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
-internal fun Project.configureAndroidApplication(applicationExtension: ApplicationExtension) {
-    val buildTimeProvider = providers.provider {
-        formattedTime(pattern = "yyyy-MM-dd HH:mm:ss")
-    }
-    val apkTimeProvider = providers.provider {
-        formattedTime(pattern = "yyyyMMdd_HHmmss")
-    }
+fun Project.configureAndroidApplication(applicationExtension: ApplicationExtension) {
     applicationExtension.apply {
         defaultConfig {
             applicationId = "github.leavesczy.compose_chat"
@@ -25,12 +16,21 @@ internal fun Project.configureAndroidApplication(applicationExtension: Applicati
             versionCode = appVersionCode()
             versionName = appVersionName()
             buildConfigField("String", "VERSION_NAME", "\"$versionName\"")
-            buildConfigField("String", "BUILD_TIME", "\"${buildTimeProvider.get()}\"")
+            val buildTime = if (nonDebugPackageRequested()) {
+                providers.of(AppBuildTimeValueSource::class.java) {}.get()
+            } else {
+                ""
+            }
+            buildConfigField("String", "BUILD_TIME", "\"$buildTime\"")
         }
-        val basePluginExtension = project.extensions.getByType<BasePluginExtension>()
-        basePluginExtension.apply {
-            archivesName.set("compose_chat_v${defaultConfig.versionName}_${defaultConfig.versionCode}_${apkTimeProvider.get()}")
+        val archiveTime = if (nonDebugPackageRequested()) {
+            "_${providers.of(ApkBuildTimeValueSource::class.java) {}.get()}"
+        } else {
+            ""
         }
+        project.extensions.getByType<BasePluginExtension>().archivesName.set(
+            "compose_chat_v${appVersionName()}_${appVersionCode()}$archiveTime"
+        )
         androidResources {
             localeFilters.clear()
             localeFilters.add(element = "zh")
@@ -81,33 +81,21 @@ internal fun Project.configureAndroidApplication(applicationExtension: Applicati
                 excludes.add(element = "META-INF/{AL2.0,LGPL2.1}")
             }
             resources {
-                excludes.addAll(
-                    elements = listOf(
-                        "**/*.md",
-                        "**/*.version",
-                        "**/*.properties",
-                        "**/*.kotlin_module",
-                        "**/CHANGES",
-                        "**/LICENSE.txt",
-                        "**/{AL2.0,LGPL2.1}",
-                        "**/DebugProbesKt.bin",
-                        "**/app-metadata.properties",
-                        "**/kotlin-tooling-metadata.json",
-                        "**/version-control-info.textproto",
-                        "**/androidsupportmultidexversion.txt",
-                        "META-INF/versions/**",
-                        "META-INF/*.kotlin_module",
-                        "META-INF/DEPENDENCIES",
-                        "META-INF/NOTICE*",
-                        "META-INF/LICENSE*"
-                    )
+                excludes += setOf(
+                    "**/*.md",
+                    "**/*.version",
+                    "**/*.properties",
+                    "**/*.kotlin_module",
+                    "**/CHANGES",
+                    "**/LICENSE.txt",
+                    "**/{AL2.0,LGPL2.1}",
+                    "**/DebugProbesKt.bin",
+                    "**/app-metadata.properties",
+                    "**/kotlin-tooling-metadata.json",
+                    "**/version-control-info.textproto",
+                    "**/androidsupportmultidexversion.txt",
                 )
             }
         }
     }
-}
-
-private fun formattedTime(pattern: String): String {
-    val formatter = DateTimeFormatter.ofPattern(pattern)
-    return ZonedDateTime.now(ZoneId.of("Asia/Shanghai")).format(formatter)
 }

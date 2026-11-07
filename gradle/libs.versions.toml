@@ -1,12 +1,13 @@
 [versions]
 app-version-name = "1.0.0"
 app-version-code = "1"
-android-compile-sdk = "37"
-android-min-sdk = "23"
+android-min-sdk = "24"
 android-target-sdk = "37"
+android-compile-sdk = "37"
+android-compile-sdk-minor = "2"
 android-build-tools = "37.0.0"
 
-android-plugin = "9.4.1"
+android-plugin = "9.5.1"
 kotlin-plugin = "2.4.21"
 track-plugin = "2.0.0"
 
@@ -16,7 +17,7 @@ androidx-appcompat = "1.8.0"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
 androidx-exifinterface = "1.4.2"
-androidx-compose-bom = "2026.09.00"
+androidx-compose-bom = "2026.11.00"
 
 kotlinx-coroutines = "1.11.0"
 kotlinx-collections-immutable = "0.5.2"
@@ -24,7 +25,7 @@ kotlinx-collections-immutable = "0.5.2"
 junit = "4.13.2"
 coil = "3.6.3"
 squareup-okhttp = "5.5.1"
-tencent-imsdk = "9.1.7822"
+tencent-imsdk = "9.1.7824"
 leavesczy-matisse = "3.0.0"
 
 [plugins]
@@ -36,9 +37,8 @@ leavesczy-track = { id = "io.github.leavesczy.track", version.ref = "track-plugi
 
 app-android-application = { id = "app.android.application" }
 app-android-library = { id = "app.android.library" }
-app-android-compose = { id = "app.android.compose" }
+app-androidx-compose = { id = "app.androidx.compose" }
 app-kotlin-parcelize = { id = "app.kotlin.parcelize" }
-app-leavesczy-track = { id = "app.leavesczy.track" }
 
 [libraries]
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-plugin" }
@@ -52,7 +52,7 @@ androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", vers
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 
-androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom-beta", version.ref = "androidx-compose-bom" }
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }

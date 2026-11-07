@@ -1,5 +1,7 @@
+package app.android.buildlogic
+
+import app.android.buildlogic.config.configureAndroidProject
 import com.android.build.api.dsl.LibraryExtension
-import github.leavesczy.compose_chat.configureAndroidProject
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply

@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "github.leavesczy.compose_chat.buildlogic"
+group = "app.android.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -17,33 +17,36 @@ kotlin {
     }
 }
 
+tasks {
+    validatePlugins {
+        enableStricterValidation = true
+        failOnWarning = true
+    }
+}
+
 dependencies {
-    compileOnly(libs.android.gradle)
-    compileOnly(libs.kotlin.gradle)
-    compileOnly(libs.leavesczy.track.gradle)
+    implementation(libs.android.gradle)
+    implementation(libs.kotlin.gradle)
+    implementation(libs.leavesczy.track.gradle)
 }
 
 gradlePlugin {
     plugins {
         register("androidApplication") {
             id = libs.plugins.app.android.application.get().pluginId
-            implementationClass = "ApplicationConventionPlugin"
+            implementationClass = "app.android.buildlogic.ApplicationConventionPlugin"
         }
         register("androidLibrary") {
             id = libs.plugins.app.android.library.get().pluginId
-            implementationClass = "LibraryConventionPlugin"
+            implementationClass = "app.android.buildlogic.LibraryConventionPlugin"
         }
-        register("androidCompose") {
-            id = libs.plugins.app.android.compose.get().pluginId
-            implementationClass = "ComposeConventionPlugin"
+        register("androidxCompose") {
+            id = libs.plugins.app.androidx.compose.get().pluginId
+            implementationClass = "app.android.buildlogic.ComposeConventionPlugin"
         }
         register("kotlinParcelize") {
             id = libs.plugins.app.kotlin.parcelize.get().pluginId
-            implementationClass = "ParcelizeConventionPlugin"
-        }
-        register("leavesczyTrack") {
-            id = libs.plugins.app.leavesczy.track.get().pluginId
-            implementationClass = "TrackConventionPlugin"
+            implementationClass = "app.android.buildlogic.ParcelizeConventionPlugin"
         }
     }
 }
